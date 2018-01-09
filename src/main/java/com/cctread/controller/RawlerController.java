@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
+ * 项目核心接口
+ *
  * @author cait
  * @version 1.0 创建时间：2018-01-08 17:24
  */
@@ -13,6 +15,7 @@ public class RawlerController {
 
     /**
      * 首页
+     *
      * @return
      */
     @RequestMapping("/")
