@@ -8,7 +8,7 @@ import java.util.Date;
  *
  * @author cait
  * @version 1.0 创建时间：2018-01-08 16:39
- * @deprecated 提供基本属性用以子类继承
+ * @Description 提供基本属性用以子类继承
  */
 public abstract class AbstractEntity implements Serializable {
 

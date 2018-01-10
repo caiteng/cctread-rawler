@@ -9,7 +9,7 @@ import java.util.Map;
  *
  * @author cait
  * @version 1.0 创建时间：2018-01-08 16:21
- * @deprecated 提供基本增删改查接口用以子接口继承
+ * @Description 提供基本增删改查接口用以子接口继承
  */
 public interface IParentDAO<T, PK> {
 
