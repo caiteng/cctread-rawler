@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.11 (64 bit)
 MySQL - 5.6.38 : Database - cctread
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -26,8 +27,8 @@ CREATE TABLE `cct_rawler_task` (
   `author` varchar(50) DEFAULT NULL COMMENT '作者',
   `start_chapter` varchar(10) DEFAULT NULL COMMENT '开始章节',
   `end_chapter` varchar(10) DEFAULT NULL COMMENT '结束章节',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '任务状态(0=未执行1=已执行)',
-  `del_flag` tinyint(1) NOT NULL DEFAULT '0' COMMENT '删除标记（0正常,1删除）',
+  `status` int(1) NOT NULL DEFAULT '0' COMMENT '任务状态(0=未执行1=已执行)',
+  `del_flag` int(1) NOT NULL DEFAULT '0' COMMENT '删除标记（0正常,1删除）',
   `version` int(10) DEFAULT '1' COMMENT '版本号',
   `create_date` datetime DEFAULT NULL COMMENT '记录新增时间',
   `update_date` datetime DEFAULT NULL COMMENT '记录修改时间',

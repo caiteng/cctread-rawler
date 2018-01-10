@@ -61,6 +61,22 @@
             <version>5.1.21</version>
         </dependency>
 
+        <!-- makeCode Tool -->
+
+        <!-- https://mvnrepository.com/artifact/org.compass-project/compass -->
+        <dependency>
+            <groupId>org.compass-project</groupId>
+            <artifactId>compass</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
