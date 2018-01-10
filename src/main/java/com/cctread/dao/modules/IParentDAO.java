@@ -1,7 +1,5 @@
 package com.cctread.dao.modules;
 
-import org.apache.ibatis.exceptions.PersistenceException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
