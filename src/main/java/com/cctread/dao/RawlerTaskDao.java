@@ -3,6 +3,7 @@ package com.cctread.dao;
 
 
 import com.cctread.dao.modules.IParentDAO;
+import com.cctread.entity.RawlerTask;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface RawlerTaskDao extends IParentDAO {
+public interface RawlerTaskDao extends IParentDAO<RawlerTask, Integer> {
 
 }
 

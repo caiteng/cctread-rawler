@@ -35,5 +35,17 @@ public class RawlerTaskController {
         return "test";
     }
 
+    /**
+     * 测试myBatis
+     *
+     * @return
+     */
+    @RequestMapping("/test2")
+    public Object index2() {
+
+      RawlerTask rawlerTask=  rawlerTaskDao.get(1);
+        return rawlerTask.toString();
+    }
+
 }
 

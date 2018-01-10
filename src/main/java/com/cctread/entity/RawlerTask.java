@@ -34,6 +34,17 @@ public class RawlerTask extends AbstractEntity {
      */
     private Integer status = 0;
 
+    @Override
+    public String toString() {
+        return "RawlerTask{" +
+                "bookName='" + bookName + '\'' +
+                ", author='" + author + '\'' +
+                ", startChapter='" + startChapter + '\'' +
+                ", endChapter='" + endChapter + '\'' +
+                ", status=" + status +
+                '}';
+    }
+
     public RawlerTask() {
     }
 

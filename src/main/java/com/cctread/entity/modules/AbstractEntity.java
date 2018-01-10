@@ -17,7 +17,7 @@ public abstract class AbstractEntity implements Serializable {
     /**
      * 记录id
      */
-    protected Long id;
+    protected Integer id;
     /**
      * 删除标记（0正常,1删除）
      */
@@ -35,11 +35,11 @@ public abstract class AbstractEntity implements Serializable {
      */
     protected Date updateDate = new Date();
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
