@@ -2,24 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cctread.dao.RawlerTaskDao">
 
-    <select id="get" parameterType="int" resultType="com.cctread.entity.RawlerTask">
+    <select id="get" parameterType="int" resultType="RawlerTask">
 		select id,book_name,author,start_chapter,end_chapter,status,del_flag,version,create_date,update_date
 		from cct_rawler_task
 		where id=#{id}
 	</select>
 
-    <select id="getAll" resultType="com.cctread.entity.RawlerTask">
+    <select id="getAll" resultType="RawlerTask">
 		select id,book_name,author,start_chapter,end_chapter,status,del_flag,version,create_date,update_date
 		from cct_rawler_task
 		where del_flag = 0
 	</select>
 
-    <insert id="create" parameterType="com.cctread.entity.RawlerTask" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="RawlerTask" useGeneratedKeys="true" keyProperty="id">
 		insert into cct_rawler_task ( id,book_name,author,start_chapter,end_chapter,status,del_flag,version,create_date,update_date )
 		values ( #{id},#{bookName},#{author},#{startChapter},#{endChapter},#{status},#{delFlag},#{version},#{createDate},#{updateDate} )
 	</insert>
 
-    <update id="update" parameterType="com.cctread.entity.RawlerTask">
+    <update id="update" parameterType="RawlerTask">
         update cct_rawler_task
         <set>
             <if test="id!=null and id!=''">id=#{id},</if>
@@ -51,7 +51,7 @@
 		select count(*) from cct_rawler_task
 	</select>
 
-    <select id="findByWhere" parameterType="Map" resultType="com.cctread.entity.RawlerTask">
+    <select id="findByWhere" parameterType="Map" resultType="RawlerTask">
         select id,book_name,author,start_chapter,end_chapter,status,del_flag,version,create_date,update_date
         from cct_rawler_task
         <where>
