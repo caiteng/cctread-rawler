@@ -109,6 +109,8 @@ public class PaginationPlugin extends PluginAdapter {
 
         sqlMapDocumentGenerated2(document, introspectedTable);
 
+        addMapperMethodGetCountByWhere(document, introspectedTable);
+
         return super.sqlMapDocumentGenerated(document, introspectedTable);
     }
 
@@ -140,12 +142,8 @@ public class PaginationPlugin extends PluginAdapter {
         XmlElement parentElement = document.getRootElement();
         XmlElement deleteLogicByIdsElement = new XmlElement("update");
         deleteLogicByIdsElement.addAttribute(new Attribute("id", "deleteLogicByIds"));
-        deleteLogicByIdsElement
-                .addElement(new TextElement(
-                        "update "
-                                + tableName
-                                + " set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in "
-                                + " <foreach item=\"item\" index=\"index\" collection=\"ids\" open=\"(\" separator=\",\" close=\")\">#{item}</foreach> "));
+        deleteLogicByIdsElement.addElement(new TextElement("update " + tableName + " set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in "
+                + " <foreach item=\"item\" index=\"index\" collection=\"ids\" open=\"(\" separator=\",\" close=\")\">#{item}</foreach> "));
 
         parentElement.addElement(deleteLogicByIdsElement);
         XmlElement queryPage = new XmlElement("select");
@@ -159,6 +157,62 @@ public class PaginationPlugin extends PluginAdapter {
         queryPage.addElement(include);
         queryPage.addElement(new TextElement(" from " + tableName + " ${sql}"));
         parentElement.addElement(queryPage);
+        return super.sqlMapDocumentGenerated(document, introspectedTable);
+    }
+
+    //    <select id="getCountByWhere" parameterType="Map" resultType="int">
+    //    select count(*)
+    //    from cct_rawler_task
+    //    <where>
+    //            and del_flag = 0
+    //            <if test="id!=null and id!=''">and id=#{id}</if>
+    //            <if test="bookName!=null and bookName!=''">and book_name=#{bookName}</if>
+    //            <if test="author!=null and author!=''">and author=#{author}</if>
+    //            <if test="startChapter!=null and startChapter!=''">and start_chapter=#{startChapter}</if>
+    //            <if test="endChapter!=null and endChapter!=''">and end_chapter=#{endChapter}</if>
+    //            <if test="status!=null and status!=''">and status=#{status}</if>
+    //            <if test="delFlag!=null and delFlag!=''">and del_flag=#{delFlag}</if>
+    //            <if test="version!=null and version!=''">and version=#{version}</if>
+    //            <if test="createDate!=null and createDate!=''">and create_date=#{createDate}</if>
+    //            <if test="updateDate!=null and updateDate!=''">and update_date=#{updateDate}</if>
+    //
+    //        </where>
+    //    </select>
+
+    /**
+     * 添加mapper文件方法GetCountByWhere
+     *
+     * @param document
+     * @param introspectedTable
+     * @return
+     */
+    public boolean addMapperMethodGetCountByWhere(Document document, IntrospectedTable introspectedTable) {
+        String tableName = introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime();
+        XmlElement parentElement = document.getRootElement();
+        XmlElement sql = new XmlElement("sql");
+        sql.addAttribute(new Attribute("id", "sql_where"));
+        XmlElement where = new XmlElement("where");
+        StringBuilder sb = new StringBuilder();
+        for (IntrospectedColumn introspectedColumn : introspectedTable.getNonPrimaryKeyColumns()) {
+            XmlElement isNotNullElement = new XmlElement("if");
+            sb.setLength(0);
+            sb.append(introspectedColumn.getJavaProperty());
+            sb.append(" != null"); //$NON-NLS-1$
+            isNotNullElement.addAttribute(new Attribute("test", sb.toString()));
+            where.addElement(isNotNullElement);
+
+            sb.setLength(0);
+            sb.append(" and ");
+            sb.append(MyBatis3FormattingUtilities.getEscapedColumnName(introspectedColumn));
+            sb.append(" = "); //$NON-NLS-1$
+            sb.append(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn));
+            isNotNullElement.addElement(new TextElement(sb.toString()));
+        }
+        sql.addElement(where);
+        parentElement.addElement(sql);
+
+        //parentElement.addElement(deleteLogicByIdsElement);
+
         return super.sqlMapDocumentGenerated(document, introspectedTable);
     }
 
