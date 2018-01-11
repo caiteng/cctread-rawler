@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!--加载属性文件 -->
+    <properties resource="application.properties"/>
+
+    <context id="context1" targetRuntime="MyBatis3">
+        <!-- 实现自定义的代码生成器plugin -->
+        <plugin type="com.tool.PaginationPlugin"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 数据库连接URL，用户名，密码 -->
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}"/>
+        <!--生成模型的包名和位置 -->
+        <!--<javaModelGenerator targetPackage="com.dmp.web.pm.entity.product" targetProject="keb/src/main/java"/>-->
+        <!--Model配置为必填，不生成此文件，把不想生成文件的targetProject属性改为找不着的路径就好了-->
+        <javaModelGenerator targetPackage="com.dmp.web.pm.entity.product" targetProject="src/main/java"/>
+        <!--映射文件的包名和位置 -->
+        <sqlMapGenerator targetPackage="mybatis.pm.product" targetProject="keb/src/main/resources"/>
+        <!--DAO的包名和位置 -->
+        <javaClientGenerator targetPackage="com.dmp.web.pm.dao.product" targetProject="keb/src/main/java"
+                             type="XMLMAPPER"/>
+        <!--要生成哪些表 -->
+        <!--<table tableName="pm_prod_material"  domainObjectName="ProdMaterial"  enableSelectByExample="false" enableDeleteByExample="false"-->
+        <!--enableCountByExample="false" enableUpdateByExample="false"-->
+        <!--selectByExampleQueryId="false">-->
+        <!--<property name="rootClass" value="com.dmp.modules.entity.AbstractEntity"/>-->
+        <!--</table>-->
+        <table tableName="1111lpm_prod_material_image" domainObjectName="ProdMaterialImage"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false">
+            <property name="rootClass" value="com.dmp.modules.entity.AbstractEntity"/>
+        </table>
+    </context>
+</generatorConfiguration>
