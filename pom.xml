@@ -61,16 +61,19 @@
             <version>5.1.21</version>
         </dependency>
 
-        <!-- makeCode Tool -->
+        <!--爬虫所需要的包-->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.11.2</version>
+        </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.compass-project/compass -->
+        <!-- 代码生成器 -->
         <dependency>
             <groupId>org.compass-project</groupId>
             <artifactId>compass</artifactId>
             <version>2.0.2</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
