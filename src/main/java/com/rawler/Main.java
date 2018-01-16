@@ -13,50 +13,51 @@ import java.io.IOException;
  */
 public class Main {
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
-              String url = "https://www.cnblogs.com/TTyb/p/5784581.html";
-              Get_Url(url);
+        String url = "https://www.88dushu.com/search/so.php?q=斗破苍穹";
+        url = "https://www.88dushu.com/xiaoshuo/0/545/";
+        url = "https://www.88dushu.com/xiaoshuo/0/545/11451196.html";
+
+        url = "https://www.88dushu.com/xiaoshuo/0/545/11451197.html";
+
+
+        Get_Url(url);
+
     }
 
     public static void Get_Url(String url) {
         try {
             Document doc = Jsoup.connect(url)
                     //.data("query", "Java")
-                    //.userAgent("头部")
+                    .userAgent("头部")
                     //.cookie("auth", "token")
-                    //.timeout(3000)
+                    .timeout(5000)
                     //.post()
                     .get();
 
-            Elements links=   doc.select("a[href]");
-            for(Element link:links){
+            Elements links = doc.select("a[href]");
+            for (Element link : links) {
 
                 String linkHref = link.attr("abs:href");
                 String linkText = link.text();
-                System.out.println(linkText+":"+linkHref);
+                System.out.println(linkText + ":" + linkHref);
 //                hm.put(linkText, linkHref);
 //                href=linkText;
             }
-            //得到html的所有东西
-//            Element content = doc.getElementById("content");
-//            //分离出html下<a>...</a>之间的所有东西
-//            Elements links = content.getElementsByTag("a");
-//            //Elements links = doc.select("a[href]");
-//            // 扩展名为.png的图片
-//            Elements pngs = doc.select("img[src$=.png]");
-//            // class等于masthead的div标签
-//            Element masthead = doc.select("div.masthead").first();
-//
-//            for (Element link : links) {
-//                //得到<a>...</a>里面的网址
-//                String linkHref = link.attr("href");
-//                //得到<a>...</a>里面的汉字
-//                String linkText = link.text();
-//                System.out.println(linkText);
-//            }
+            Elements content = doc.select(".yd_text2");
+            System.out.println(content);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void getText() {
+
     }
 
 
