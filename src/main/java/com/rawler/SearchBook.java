@@ -28,6 +28,7 @@ public class SearchBook {
     public static Map<String, String> search(String key) throws IOException {
         String url = getUrl(key);
         Map map = new TreeMap();
+        System.out.println(url);
         Document doc = Jsoup.connect(url)
                 //.data("query", "Java")
                 .userAgent("头部")
@@ -37,6 +38,7 @@ public class SearchBook {
                 .get();
 
         Elements links = doc.select("a[href]");
+        System.out.println(links);
         for (Element link : links) {
             String linkHref = link.attr("abs:href");
             String linkText = link.text();

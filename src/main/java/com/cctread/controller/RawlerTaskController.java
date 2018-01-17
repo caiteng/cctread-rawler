@@ -4,9 +4,17 @@ package com.cctread.controller;
 import com.cctread.dao.RawlerTaskDao;
 import com.cctread.entity.RawlerTask;
 import com.cctread.service.RawlerTaskService;
+import com.google.gson.Gson;
+import com.rawler.SearchBook;
+import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * 爬虫任务
@@ -24,28 +32,31 @@ public class RawlerTaskController {
     private RawlerTaskDao rawlerTaskDao;
 
     /**
-     * 测试myBatis
+     * 搜索
      *
+     * @param token
+     * @param website
+     * @param key
+     * @param page
      * @return
      */
-    @RequestMapping("/test")
-    public Object index() {
-        RawlerTask rawlerTask = new RawlerTask("斗破", "土豆", "1", "2");
-        rawlerTaskDao.create(rawlerTask);
-        return "test";
+    @RequestMapping("/search")
+    public Object search(String token, String website, String key, String page) {
+        if (page == null) {
+
+        }
+
+        Map map = null;
+        try {
+            map = SearchBook.search(key);
+            return new Gson().toJson(map);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "test";
+        }
+
     }
 
-    /**
-     * 测试myBatis
-     *
-     * @return
-     */
-    @RequestMapping("/test2")
-    public Object index2() {
-
-      RawlerTask rawlerTask=  rawlerTaskDao.get(1);
-        return rawlerTask.toString();
-    }
 
 }
 

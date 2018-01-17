@@ -23,10 +23,10 @@ public class Main {
      */
     public static void main(String[] args) {
         String url = "https://www.88dushu.com/search/so.php?q=斗破苍穹";
-        url = "https://www.88dushu.com/xiaoshuo/0/545/";
-        url = "https://www.88dushu.com/xiaoshuo/0/545/11451196.html";
-
-        url = "https://www.88dushu.com/xiaoshuo/0/545/11451197.html";
+//        url = "https://www.88dushu.com/xiaoshuo/0/545/";
+//        url = "https://www.88dushu.com/xiaoshuo/0/545/11451196.html";
+//
+//        url = "https://www.88dushu.com/xiaoshuo/0/545/11451197.html";
         try {
             SearchBook.search("斗破苍穹");
         } catch (IOException e) {
