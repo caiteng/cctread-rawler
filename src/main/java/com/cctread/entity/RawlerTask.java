@@ -30,6 +30,10 @@ public class RawlerTask extends AbstractEntity {
      */
     private String endChapter;
     /**
+     * 备注
+     */
+    private String remark;
+    /**
      * 任务状态(0=未执行1=已执行)
      */
     private Integer status = 0;
@@ -89,6 +93,14 @@ public class RawlerTask extends AbstractEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
 

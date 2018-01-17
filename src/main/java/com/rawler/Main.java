@@ -14,6 +14,11 @@ import java.io.IOException;
 public class Main {
 
     /**
+     * 爬虫工具学习
+     * 参考网站-http://blog.csdn.net/column/details/jsoup.html
+     */
+
+    /**
      * @param args
      */
     public static void main(String[] args) {
@@ -22,13 +27,17 @@ public class Main {
         url = "https://www.88dushu.com/xiaoshuo/0/545/11451196.html";
 
         url = "https://www.88dushu.com/xiaoshuo/0/545/11451197.html";
+        try {
+            SearchBook.search("斗破苍穹");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-
-        Get_Url(url);
+        GetContent(url);
 
     }
 
-    public static void Get_Url(String url) {
+    public static void GetContent(String url) {
         try {
             Document doc = Jsoup.connect(url)
                     //.data("query", "Java")
@@ -37,19 +46,8 @@ public class Main {
                     .timeout(5000)
                     //.post()
                     .get();
-
-            Elements links = doc.select("a[href]");
-            for (Element link : links) {
-
-                String linkHref = link.attr("abs:href");
-                String linkText = link.text();
-                System.out.println(linkText + ":" + linkHref);
-//                hm.put(linkText, linkHref);
-//                href=linkText;
-            }
             Elements content = doc.select(".yd_text2");
-            System.out.println(content);
-
+            System.out.println(content.html());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,6 +55,18 @@ public class Main {
 
 
     public void getText() {
+
+    }
+
+    /**
+     * 去除div
+     *
+     * @param content 主体内容
+     */
+    public void removeDiv(String content) {
+//        if(){
+//
+//        }
 
     }
 

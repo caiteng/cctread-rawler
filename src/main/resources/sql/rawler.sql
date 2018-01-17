@@ -22,18 +22,19 @@ USE `cctread`;
 DROP TABLE IF EXISTS `cct_rawler_task`;
 
 CREATE TABLE `cct_rawler_task` (
-  `id` int(8) NOT NULL AUTO_INCREMENT COMMENT '爬虫任务id',
-  `book_name` varchar(50) DEFAULT NULL COMMENT '书名',
-  `author` varchar(50) DEFAULT NULL COMMENT '作者',
-  `start_chapter` varchar(10) DEFAULT NULL COMMENT '开始章节',
-  `end_chapter` varchar(10) DEFAULT NULL COMMENT '结束章节',
-  `status` int(1) NOT NULL DEFAULT '0' COMMENT '任务状态(0=未执行1=已执行)',
-  `del_flag` int(1) NOT NULL DEFAULT '0' COMMENT '删除标记（0正常,1删除）',
-  `version` int(10) DEFAULT '1' COMMENT '版本号',
-  `create_date` datetime DEFAULT NULL COMMENT '记录新增时间',
-  `update_date` datetime DEFAULT NULL COMMENT '记录修改时间',
+  `id` INT(8) NOT NULL AUTO_INCREMENT COMMENT '爬虫任务id',
+  `book_name` VARCHAR(50) DEFAULT NULL COMMENT '书名',
+  `author` VARCHAR(50) DEFAULT NULL COMMENT '作者',
+  `start_chapter` VARCHAR(10) DEFAULT NULL COMMENT '开始章节',
+  `end_chapter` VARCHAR(10) DEFAULT NULL COMMENT '结束章节',
+  `status` INT(1) NOT NULL DEFAULT '0' COMMENT '任务状态(0=未执行1=已执行)',
+  `remark` VARCHAR(200) DEFAULT NULL COMMENT '备注',
+  `del_flag` INT(1) NOT NULL DEFAULT '0' COMMENT '删除标记（0正常,1删除）',
+  `version` INT(10) DEFAULT '1' COMMENT '版本号',
+  `create_date` DATETIME DEFAULT NULL COMMENT '记录新增时间',
+  `update_date` DATETIME DEFAULT NULL COMMENT '记录修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
