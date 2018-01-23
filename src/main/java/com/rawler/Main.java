@@ -22,7 +22,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        String url = "https://www.88dushu.com/search/so.php?q=斗破苍穹";
+        String url = "https://www.88dushu.com/search/so.php?q=天";
 //        url = "https://www.88dushu.com/xiaoshuo/0/545/";
 //        url = "https://www.88dushu.com/xiaoshuo/0/545/11451196.html";
 //
