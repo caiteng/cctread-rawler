@@ -1,7 +1,9 @@
 package com.cctread.controller;
 
 import com.cctread.entity.Book;
-import com.rawler.SearchBook;
+import com.cctread.util.cos.TenCentCosService;
+import com.core.rawler.SearchBook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,9 @@ import java.util.Map;
  */
 @Controller
 public class RawlerController {
+
+    @Autowired
+    private TenCentCosService tenCentCosService;
     /**
      * 首页
      *
@@ -26,6 +31,7 @@ public class RawlerController {
     public Object index() {
         return "index";
     }
+
 
     /**
      * 测试freemarker

@@ -2,17 +2,14 @@
 package com.cctread.controller;
 
 import com.cctread.dao.RawlerTaskDao;
-import com.cctread.entity.RawlerTask;
 import com.cctread.service.RawlerTaskService;
+import com.cctread.util.cos.TenCentCosService;
 import com.google.gson.Gson;
-import com.rawler.SearchBook;
-import jdk.nashorn.internal.ir.RuntimeNode;
+import com.core.rawler.SearchBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
@@ -26,10 +23,42 @@ import java.util.Map;
 public class RawlerTaskController {
 
     @Autowired
+    private TenCentCosService tenCentCosService;
+
+    @Autowired
     private RawlerTaskService rawlerTaskService;
 
     @Autowired
     private RawlerTaskDao rawlerTaskDao;
+
+    /**
+     * 测试下载
+     *
+     * @return
+     */
+    @RequestMapping("/testdown")
+    public String testdown() {
+        try {
+            return    tenCentCosService.getObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "12";
+    }
+    /**
+     * 测试上传
+     *
+     * @return
+     */
+    @RequestMapping("/testup")
+    public String testup() {
+        try {
+            tenCentCosService.putObject("测试上传");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  "22";
+    }
 
     /**
      * 搜索

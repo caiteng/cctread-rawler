@@ -81,6 +81,12 @@
             <artifactId>jsoup</artifactId>
             <version>1.11.2</version>
         </dependency>
+        <!--对象云存储jdk-->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.2.4</version>
+        </dependency>
 
         <!-- 代码生成器 -->
         <dependency>
