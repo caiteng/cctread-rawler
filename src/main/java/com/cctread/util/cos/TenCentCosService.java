@@ -1,14 +1,16 @@
 package com.cctread.util.cos;
 
+import com.cctread.util.io.IOUtil;
+import com.core.exception.CctException;
 import com.qcloud.cos.COSClient;
+import com.qcloud.cos.exception.CosServiceException;
 import com.qcloud.cos.model.*;
 import com.qcloud.cos.transfer.Download;
 import com.qcloud.cos.transfer.TransferManager;
 import com.qcloud.cos.transfer.Upload;
-import org.codehaus.groovy.runtime.powerassert.SourceText;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
+import org.jsoup.helper.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -24,7 +26,7 @@ import java.util.concurrent.ExecutorService;
 @Component
 public class TenCentCosService {
 
-
+    private static final Logger log = LoggerFactory.getLogger(TenCentCosService.class);
     /**
      * 桶名
      * bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
@@ -125,75 +127,65 @@ public class TenCentCosService {
     }
 
     /**
-     * 下载
+     * 使用流下载文本文件
      *
-     * @return
-     * @throws IOException
+     * @param txtPath 文件名称
+     * @return 文本内容
+     * @书名命名格式 书名_作者名_章节编号
      */
-    public String getObject() throws IOException {
-        // bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
-        String key = "sss/test.txt";
-        GetObjectRequest getObjectRequest = new GetObjectRequest(bucketName, key);
-        COSObject cosObject = getCosClient().getObject(getObjectRequest);
-        COSObjectInputStream cosObjectInput = cosObject.getObjectContent();
-
-        String str = inputStreamToString(cosObjectInput, "GBK");
-
-        cosObjectInput.close();
-
-        System.out.println(str);
-        return str;
-
-
-    }
-
-    /**
-     * 上传
-     *
-     * @param str
-     * @return
-     * @throws IOException
-     */
-    public String putObject(String str) throws IOException {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(str.getBytes("GBK"));
-
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        int count = byteArrayInputStream.available(); // 字节流的字节数
-        // 设置输入流长度为 500
-        objectMetadata.setContentLength(count);
-        // 设置 Content type, 默认是 application/octet-stream
-        objectMetadata.setContentType("application/text");
-
-        String key = "sss/test.txt";
-        PutObjectResult putObjectResult = getCosClient().putObject(bucketName, key, byteArrayInputStream, objectMetadata);
-        String etag = putObjectResult.getETag();
-
-        byteArrayInputStream.close();
-        System.out.println(etag);
-        return etag;
-    }
-
-    /**
-     * 转为字符
-     *
-     * @param is
-     * @param encoding
-     * @return
-     * @throws IOException
-     */
-    private static String inputStreamToString(InputStream is, String encoding) throws IOException {
-
-        int count = is.available(); // 字节流的字节数
-        /** 由于InputStream.read(byte[] b)方法并不能一次性读取太多字节,所以需要判断是否已读取完毕 **/
-        byte[] b = new byte[count]; //
-        int readCount = 0; // 已经成功读取的字节的个数
-        while (readCount < count) {
-            readCount += is.read(b, readCount, count - readCount);
+    public String getObject(String txtPath) {
+        String str = null;
+        try {
+            GetObjectRequest getObjectRequest = new GetObjectRequest(bucketName, txtPath);
+            COSObject cosObject = getCosClient().getObject(getObjectRequest);
+            COSObjectInputStream cosObjectInput = cosObject.getObjectContent();
+            str = IOUtil.inputStreamToString(cosObjectInput, "GBK");
+            cosObjectInput.close();
+        } catch (CosServiceException cse) {
+            String msg = "文件" + txtPath + "不存在";
+            log.error(msg + "-" + cse);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
-        return new String(b, 0, count, encoding);
+        return str;
     }
 
+    /**
+     * 使用流上传文本
+     *
+     * @param text    文本内容
+     * @param txtPath 文件名
+     * @书名命名格式 书名_作者名_章节编号
+     */
+    public void putObject(String text, String txtPath) {
+        if (StringUtil.isBlank(text)) {
+            throw new CctException("文本内容为空");
+        }
+        ByteArrayInputStream byteArrayInputStream = null;
+        try {
+            //文本转字节流
+            byteArrayInputStream = new ByteArrayInputStream(text.getBytes("GBK"));
 
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            //获取流长度
+            int count = byteArrayInputStream.available();
+            objectMetadata.setContentLength(count);
+
+            objectMetadata.setContentType("application/text");
+            getCosClient().putObject(bucketName, txtPath, byteArrayInputStream, objectMetadata);
+            log.info("上传<" + txtPath + ">成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (byteArrayInputStream != null) {
+                try {
+                    byteArrayInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     public COSClient getCosClient() {
         return TenCentCosClient.getCosClient();

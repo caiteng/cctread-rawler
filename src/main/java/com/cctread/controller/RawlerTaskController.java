@@ -38,13 +38,10 @@ public class RawlerTaskController {
      */
     @RequestMapping("/testdown")
     public String testdown() {
-        try {
-            return    tenCentCosService.getObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "12";
+        return tenCentCosService.getObject("斗破苍穹_天蚕土豆_1");
+
     }
+
     /**
      * 测试上传
      *
@@ -52,12 +49,12 @@ public class RawlerTaskController {
      */
     @RequestMapping("/testup")
     public String testup() {
-        try {
-            tenCentCosService.putObject("测试上传");
-        } catch (IOException e) {
-            e.printStackTrace();
+        String text = "测试上传3千載正字一夕改<br>  《》 如今吾輩來重光3ed%$#%^&&*()@!~斗破苍\"\"穹_天蚕土豆_1";
+        while (text.length() < 8000) {
+            text += text;
         }
-        return  "22";
+        tenCentCosService.putObject(text, "斗破苍穹_天蚕土豆_1");
+        return "c";
     }
 
     /**
