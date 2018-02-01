@@ -3,8 +3,12 @@ package com.core.rawler;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.thymeleaf.util.MapUtils;
+import sun.plugin2.os.windows.Windows;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author cait
@@ -27,20 +31,22 @@ public class Main {
 //
 //        url = "https://www.88dushu.com/xiaoshuo/0/545/11451197.html";
         try {
-            SearchBook.search("斗破苍穹");
-        } catch (IOException e) {
+            SearchBook.search("斗破苍穹天蚕");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        GetContent(url);
+        //GetContent(url);
 
     }
 
     public static void GetContent(String url) {
         try {
+
+
             Document doc = Jsoup.connect(url)
                     //.data("query", "Java")
-                    .userAgent("头部")
+                    //.userAgent("Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1 )")
                     //.cookie("auth", "token")
                     .timeout(5000)
                     //.post()

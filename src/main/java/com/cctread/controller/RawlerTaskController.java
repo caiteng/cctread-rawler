@@ -76,7 +76,7 @@ public class RawlerTaskController {
         try {
             map = SearchBook.search(key);
             return new Gson().toJson(map);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return "test";
         }

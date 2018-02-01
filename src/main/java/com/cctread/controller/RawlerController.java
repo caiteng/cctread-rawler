@@ -44,9 +44,9 @@ public class RawlerController {
         book.setContent("cses");
 
         try {
-         Map<String,String> map= SearchBook.search("天珠变");
+         Map map= SearchBook.search("天珠变");
             model.addAttribute("book", map);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
