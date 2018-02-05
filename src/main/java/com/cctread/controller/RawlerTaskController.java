@@ -2,16 +2,21 @@
 package com.cctread.controller;
 
 import com.cctread.dao.RawlerTaskDao;
+import com.cctread.entity.Book;
+import com.cctread.entity.RawlerTask;
 import com.cctread.service.RawlerTaskService;
 import com.cctread.util.cos.TenCentCosService;
+import com.core.rawler._88dushu.Rawler_88;
 import com.google.gson.Gson;
-import com.core.rawler.SearchBook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.Map;
+
+import static java.awt.SystemColor.text;
 
 /**
  * 爬虫任务
@@ -24,12 +29,45 @@ public class RawlerTaskController {
 
     @Autowired
     private TenCentCosService tenCentCosService;
-
-    @Autowired
-    private RawlerTaskService rawlerTaskService;
-
+//
+//    @Autowired
+//    private RawlerTaskService rawlerTaskService;
+//
     @Autowired
     private RawlerTaskDao rawlerTaskDao;
+
+    /**
+     * 测试freemarker
+     *
+     * @return
+     */
+    @RequestMapping("/getContent")
+    public String getContent(String url) {
+        try {
+            return Rawler_88.getContent(Rawler_88.doRequest(url));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "testBook";
+    }
+
+    /**
+     * 测试freemarker
+     *
+     * @return
+     */
+    @RequestMapping("/getConte22nt")
+    public String getContent111(String url) {
+        try {
+            Rawler_88.getContent(Rawler_88.doRequest(url));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "testBook";
+    }
+
 
     /**
      * 测试下载
@@ -48,12 +86,14 @@ public class RawlerTaskController {
      * @return
      */
     @RequestMapping("/testup")
-    public String testup() {
-        String text = "测试上传3千載正字一夕改<br>  《》 如今吾輩來重光3ed%$#%^&&*()@!~斗破苍\"\"穹_天蚕土豆_1";
-        while (text.length() < 8000) {
-            text += text;
+    public String testup(String url) {
+        try {
+            String text = Rawler_88.getContent(Rawler_88.doRequest(url));
+            tenCentCosService.putObject(text, "斗破苍穹_天蚕土豆_1");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        tenCentCosService.putObject(text, "斗破苍穹_天蚕土豆_1");
+
         return "c";
     }
 
@@ -74,7 +114,7 @@ public class RawlerTaskController {
 
         Map map = null;
         try {
-            map = SearchBook.search(key);
+            //map = SearchBook.search(key);
             return new Gson().toJson(map);
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,6 +122,27 @@ public class RawlerTaskController {
         }
 
     }
+    /**
+     * 搜索
+     * @return
+     */
+    @RequestMapping("/test")
+    public Object test() {
+
+        Map map = null;
+        try {
+           RawlerTask rawlerTask= rawlerTaskDao.get(1);
+            System.out.println(rawlerTask.toString());
+            return new Gson().toJson(rawlerTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "11";
+        }
+
+    }
+
+
+
 
 
 }

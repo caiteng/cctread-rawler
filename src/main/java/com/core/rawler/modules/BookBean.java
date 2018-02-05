@@ -1,4 +1,4 @@
-package com.core.rawler;
+package com.core.rawler.modules;
 
 /**
  * @author caiteng
@@ -9,6 +9,8 @@ public class BookBean {
    private String href;
    private String name;
    private String img;
+   private String author;
+
 
     @Override
     public String toString() {
@@ -17,6 +19,14 @@ public class BookBean {
                 ", name='" + name + '\'' +
                 ", img='" + img + '\'' +
                 '}';
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getHref() {
