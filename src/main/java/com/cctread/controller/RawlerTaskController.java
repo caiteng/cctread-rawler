@@ -127,11 +127,11 @@ public class RawlerTaskController {
      * @return
      */
     @RequestMapping("/test")
-    public Object test() {
+    public Object test(int id) {
 
         Map map = null;
         try {
-           RawlerTask rawlerTask= rawlerTaskDao.get(1);
+           RawlerTask rawlerTask= rawlerTaskDao.get(id);
             System.out.println(rawlerTask.toString());
             return new Gson().toJson(rawlerTask);
         } catch (Exception e) {
