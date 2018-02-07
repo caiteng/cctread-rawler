@@ -47,10 +47,21 @@ public class RestRawlerController {
     }
 
     /**
-     * 搜索
+     * 测试获取
      */
     @RequestMapping("/get")
     public String sear2ch(String key) {
         return novelDao.get(1).toString();
+    }
+    /**
+     * 测试新增
+     */
+    @RequestMapping("/create")
+    public String create(String key) {
+        Novel novel=new Novel();
+        novel.setAuthor("草图");
+        novel.setBookName(key);
+        novelDao.create(novel);
+        return "aa";
     }
 }
