@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cctread.dao.ChapterDao">
+
+    <select id="get" resultType="Chapter" parameterType="int">
+     select id,novel_id,chapter_name,del_flag,create_date,update_date 
+     from cct_chapter where id=#{id}
+  </select>
+
+    <select id="getAll" resultType="Chapter">
+     select id,novel_id,chapter_name,del_flag,create_date,update_date 
+     from cct_chapter where del_flag = 0
+  </select>
+
+    <insert id="create" parameterType="Chapter" useGeneratedKeys="true" keyProperty="id">
+    insert into cct_chapter ( id,novel_id,chapter_name,del_flag,create_date,update_date )
+     values (#{id},#{novelId},#{chapterName},#{delFlag},#{createDate},#{updateDate})
+  </insert>
+
+    <update id="update" parameterType="Chapter">
+        update cct_chapter
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="novel_id != null">novel_id = #{novelId},</if>
+            <if test="chapter_name != null">chapter_name = #{chapterName},</if>
+            <if test="del_flag != null">del_flag = #{delFlag},</if>
+            <if test="create_date != null">create_date = #{createDate},</if>
+            <if test="update_date != null">update_date = #{updateDate},</if>
+        </set>
+        where id =#{id}
+    </update>
+
+    <update id="delete" parameterType="int">
+     update cct_chapter set del_flag = 1 where id =#{id}
+  </update>
+
+    <update id="multiDelete" parameterType="Map">
+     update cct_chapter set del_flag = 1 where id in (${ids})
+  </update>
+
+    <select id="count" resultType="Map">
+     select count(*) fromcct_chapter
+  </select>
+
+    <select id="findByWhere" parameterType="Map" resultType="Chapter">
+        select id,novel_id,chapter_name,del_flag,create_date,update_date from Chapter
+        <where>
+            del_flag = 0
+            <if test="id != null">and id = #{id}</if>
+            <if test="novelId != null">and novel_id = #{novelId}</if>
+            <if test="chapterName != null">and chapter_name = #{chapterName}</if>
+            <if test="delFlag != null">and del_flag = #{delFlag}</if>
+            <if test="createDate != null">and create_date = #{createDate}</if>
+            <if test="updateDate != null">and update_date = #{updateDate}</if>
+        </where>
+        ORDER BY id desc
+        LIMIT #{lowerLimit},#{upperLimit}
+    </select>
+
+    <select id="getCountByWhere" parameterType="Map" resultType="int">
+        select count(*) from Chapter
+        <where>
+            del_flag = 0
+            <if test="id != null">and id = #{id}</if>
+            <if test="novelId != null">and novel_id = #{novelId}</if>
+            <if test="chapterName != null">and chapter_name = #{chapterName}</if>
+            <if test="delFlag != null">and del_flag = #{delFlag}</if>
+            <if test="createDate != null">and create_date = #{createDate}</if>
+            <if test="updateDate != null">and update_date = #{updateDate}</if>
+        </where>
+    </select>
+
+</mapper>

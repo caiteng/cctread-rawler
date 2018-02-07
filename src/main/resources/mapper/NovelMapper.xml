@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cctread.dao.NovelDao">
+
+    <select id="get" resultType="Novel" parameterType="int">
+     select id,book_name,author,nocal_cover,del_flag,create_date,update_date from cct_novel where id=#{id}
+  </select>
+
+    <select id="getAll" resultType="Novel">
+     select id,book_name,author,nocal_cover,del_flag,create_date,update_date from cct_novel where del_flag = 0 
+  </select>
+
+    <insert id="create" parameterType="Novel" useGeneratedKeys="true" keyProperty="id">
+    insert into cct_novel ( id,book_name,author,nocal_cover,del_flag,create_date,update_date ) 
+    values (#{id},#{bookName},#{author},#{nocalCover},#{delFlag},#{createDate},#{updateDate})
+  </insert>
+
+    <update id="update" parameterType="Novel">
+        update cct_novel
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="book_name != null">book_name = #{bookName},</if>
+            <if test="author != null">author = #{author},</if>
+            <if test="nocal_cover != null">nocal_cover = #{nocalCover},</if>
+            <if test="del_flag != null">del_flag = #{delFlag},</if>
+            <if test="create_date != null">create_date = #{createDate},</if>
+            <if test="update_date != null">update_date = #{updateDate},</if>
+        </set>
+        where id =#{id}
+    </update>
+
+    <update id="delete" parameterType="long">
+     update cct_novel set del_flag = 1 where id =#{id}
+  </update>
+
+    <update id="multiDelete" parameterType="Map">
+     update cct_novel set del_flag = 1 where id in (${ids})
+  </update>
+
+    <select id="count" resultType="Map">
+     select count(*) fromcct_novel
+  </select>
+
+    <select id="findByWhere" parameterType="Map" resultType="Novel">
+        select id,book_name,author,nocal_cover,del_flag,create_date,update_date from Novel
+        <where>
+            del_flag = 0
+            <if test="id != null">and id = #{id}</if>
+            <if test="bookName != null">and book_name = #{bookName}</if>
+            <if test="author != null">and author = #{author}</if>
+            <if test="nocalCover != null">and nocal_cover = #{nocalCover}</if>
+            <if test="delFlag != null">and del_flag = #{delFlag}</if>
+            <if test="createDate != null">and create_date = #{createDate}</if>
+            <if test="updateDate != null">and update_date = #{updateDate}</if>
+        </where>
+        ORDER BY id desc
+        LIMIT #{lowerLimit},#{upperLimit}
+    </select>
+
+    <select id="getCountByWhere" parameterType="Map" resultType="int">
+        select count(*) from Novel
+        <where>
+            del_flag = 0
+            <if test="id != null">and id = #{id}</if>
+            <if test="bookName != null">and book_name = #{bookName}</if>
+            <if test="author != null">and author = #{author}</if>
+            <if test="nocalCover != null">and nocal_cover = #{nocalCover}</if>
+            <if test="delFlag != null">and del_flag = #{delFlag}</if>
+            <if test="createDate != null">and create_date = #{createDate}</if>
+            <if test="updateDate != null">and update_date = #{updateDate}</if>
+        </where>
+    </select>
+
+</mapper>
