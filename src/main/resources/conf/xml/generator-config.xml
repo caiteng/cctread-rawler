@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
     <!--加载属性文件 -->
-    <properties resource="conf/properties/jdbc.properties"/>
+    <properties resource="application.properties"/>
 
     <context id="context1" targetRuntime="MyBatis3">
         <!-- 实现自定义的代码生成器plugin -->
@@ -14,18 +14,23 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!-- 数据库连接URL，用户名，密码 -->
-        <jdbcConnection driverClass="${jdbc.driver}"
-                        connectionURL="${jdbc.url}"
-                        userId="${jdbc.username}"
-                        password="${jdbc.password}"/>
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}"/>
         <!--生成模型的包名和位置 -->
-        <javaModelGenerator targetPackage="com.cctread.entity" targetProject="src11/main/java"/>
+        <javaModelGenerator targetPackage="com.cctread.entity" targetProject="src/main/java"/>
         <!--映射文件的包名和位置 -->
         <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
         <!--DAO的包名和位置 -->
         <javaClientGenerator targetPackage="com.cctread.dao" targetProject="src/main/java" type="XMLMAPPER"/>
         <!--要生成哪些表 -->
-        <table tableName="cct_rawler_task" domainObjectName="RawlerTask" enableSelectByExample="false" enableDeleteByExample="false"
+        <table tableName="1cct_novel" domainObjectName="Novel" enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false">
+            <property name="rootClass" value="com.cctread.entity.modules.AbstractEntity"/>
+        </table>
+        <table tableName="1cct_chapter" domainObjectName="Chapter" enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false">
             <property name="rootClass" value="com.cctread.entity.modules.AbstractEntity"/>

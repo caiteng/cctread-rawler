@@ -3,6 +3,7 @@ package com.cctread;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * spring boot 项目起始类
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @ComponentScan
 @SpringBootApplication
+@EnableScheduling
 public class CctreadRawlerApplication {
     /**
      * 项目起始方法

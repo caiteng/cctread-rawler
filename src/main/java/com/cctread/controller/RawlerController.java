@@ -29,7 +29,7 @@ public class RawlerController {
      */
     @RequestMapping("/")
     public Object index() {
-        return "index";
+        return "search/searchBook";
     }
 
 

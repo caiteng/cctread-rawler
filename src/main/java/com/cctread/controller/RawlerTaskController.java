@@ -97,31 +97,7 @@ public class RawlerTaskController {
         return "c";
     }
 
-    /**
-     * 搜索
-     *
-     * @param token
-     * @param website
-     * @param key
-     * @param page
-     * @return
-     */
-    @RequestMapping("/search")
-    public Object search(String token, String website, String key, String page) {
-        if (page == null) {
 
-        }
-
-        Map map = null;
-        try {
-            //map = SearchBook.search(key);
-            return new Gson().toJson(map);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "test";
-        }
-
-    }
     /**
      * 搜索
      * @return

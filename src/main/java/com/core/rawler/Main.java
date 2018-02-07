@@ -3,6 +3,8 @@ package com.core.rawler;
 import com.core.rawler._88dushu.Rawler_88;
 import com.core.rawler.modules.RawlerUtil;
 
+import java.io.IOException;
+
 /**
  * @author cait
  * @version 1.0 创建时间：2018-01-15 10:55
@@ -26,16 +28,16 @@ public class Main extends RawlerUtil{
 //        url = "https://www.88dushu.com/xiaoshuo/0/545/11451196.html";
 //
 //        url = "https://www.88dushu.com/xiaoshuo/0/545/11451197.html";
-//        try {
-//            SearchBook.search("鹿鼎记");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            System.out.println(Rawler_88.search("鹿鼎记"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 //        try {
 //            String  url = "https://www.88dushu.com/xiaoshuo/0/545/";
 //            //url="https://www.88dushu.com/xiaoshuo/20/20864/";
-//            getUrl(url);
+//            Rawler_88.getWebUrl(url);
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        } catch (InterruptedException e) {
@@ -44,17 +46,19 @@ public class Main extends RawlerUtil{
 //        try {
 //            String  url = "https://www.88dushu.com/xiaoshuo/0/545/11453500.html";
 //            //url="https://www.88dushu.com/xiaoshuo/20/20864/";
-//            GetContent(url);
+//
+//       String content=     Rawler_88.getContent(Rawler_88.doRequest(url));
+//            System.out.println(content);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        try {
-            String url = "https://www.88dushu.com/xiaoshuo/20/20864/4045610.html";
-            //url="https://www.88dushu.com/xiaoshuo/20/20864/";
-            Rawler_88.getWebUrl(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String url = "https://www.88dushu.com/xiaoshuo/20/20864/4045610.html";
+//            //url="https://www.88dushu.com/xiaoshuo/20/20864/";
+//            Rawler_88.getWebUrl(url);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 

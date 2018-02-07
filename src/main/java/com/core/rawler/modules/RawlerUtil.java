@@ -32,7 +32,7 @@ public abstract class RawlerUtil {
      */
     public static Map<String, String> getHeadersMap() {
         Map headers = new HashMap();
-        headers.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+        headers.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,img/webp,img/apng,*/*;q=0.8");
         headers.put("Accept-Encoding", "gzip, deflate, br");
         headers.put("Accept-Language", "zh-CN,zh;q=0.9");
         headers.put("Cache-Control", "max-age=0");

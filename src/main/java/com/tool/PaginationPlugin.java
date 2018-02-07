@@ -118,7 +118,7 @@ public class PaginationPlugin extends PluginAdapter {
         //添加基本get方法
         addMapperMethodGet(parentElement, baseColumnList.toString(), className, tableName, primaryKey, JavaPrimaryKey);
         //添加基本getAll方法
-        addMapperMethodGetAll(parentElement, baseColumnList.toString(), delFlag, className, tableName);
+        addMapperMethodGetAll(parentElement, baseColumnList.toString(), className, tableName,delFlag);
         //添加基本create方法
         addMapperMethodCreate(parentElement, baseColumnList.toString(), className, tableName, primaryKey, javaBaseColumnList.toString());
         //添加基本update方法
@@ -150,8 +150,8 @@ public class PaginationPlugin extends PluginAdapter {
     private void addMapperMethodGet(XmlElement parentElement, String baseColumnList, String className, String tableName, String primaryKey, String JavaPrimaryKey) {
         XmlElement get = new XmlElement("select");
         get.addAttribute(new Attribute("id", "get"));
-        get.addAttribute(new Attribute("resultMap", className));
-        get.addAttribute(new Attribute("parameterType", "Long"));
+        get.addAttribute(new Attribute("resultType", className));
+        get.addAttribute(new Attribute("parameterType", "int"));
         get.addElement(new TextElement(" select " + baseColumnList + " from " + tableName + " where " + primaryKey + "=#{" + JavaPrimaryKey + "}"));
         parentElement.addElement(get);
     }
@@ -168,10 +168,10 @@ public class PaginationPlugin extends PluginAdapter {
     private void addMapperMethodGetAll(XmlElement parentElement, String baseColumnList, String className, String tableName, String delFlag) {
         XmlElement getAll = new XmlElement("select");
         getAll.addAttribute(new Attribute("id", "getAll"));
-        getAll.addAttribute(new Attribute("resultMap", className));
+        getAll.addAttribute(new Attribute("resultType", className));
         String sql = " select " + baseColumnList + " from " + tableName;
         if (delFlag.length() > 0) {
-            sql += delFlag + " = 0 ";
+            sql +=" where "+ delFlag + " = 0 ";
         }
         getAll.addElement(new TextElement(sql));
         parentElement.addElement(getAll);
@@ -278,7 +278,7 @@ public class PaginationPlugin extends PluginAdapter {
         XmlElement getCountByWhere = new XmlElement("select");
         getCountByWhere.addAttribute(new Attribute("id", "getCountByWhere"));
         getCountByWhere.addAttribute(new Attribute("parameterType", "Map"));
-        getCountByWhere.addAttribute(new Attribute("resultType", "long"));
+        getCountByWhere.addAttribute(new Attribute("resultType", "int"));
         getCountByWhere.addElement(new TextElement("select count(*)  from " + className));
         getCountByWhere.addElement(where);
         parentElement.addElement(getCountByWhere);

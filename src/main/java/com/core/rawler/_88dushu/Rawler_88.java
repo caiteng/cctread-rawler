@@ -29,36 +29,34 @@ public class Rawler_88 extends RawlerUtil {
     public static Map<String, BookBean> search(String key) throws IOException, InterruptedException {
         String url = SEARCH_URL_88DUSHU + key;
         Map<String, BookBean> map = new TreeMap<String, BookBean>();
-       // System.out.println(url);
         Document doc = doRequest(url);
-
-        Elements links = doc.select("a[href]");
-       // System.out.println(links);
-        for (Element link : links) {
-
-            String linkHref = link.attr("abs:href");
-            String linkText = link.text();
-
-            System.out.println(linkText + ":" + linkHref);
-            if (StringUtil.isBlank(linkHref) || "首页".equals(linkText)) {
-                continue;
+        Elements books = doc.select("div.block");
+        for (Element book : books) {
+            BookBean bookBean = null;
+            Elements links = book.select("a[href]");
+            for (Element link : links) {
+                String linkHref = link.attr("abs:href");
+                if (StringUtil.isBlank(linkHref)) {
+                    continue;
+                }
+                bookBean = map.get(linkHref);
+                if (bookBean == null) {
+                    bookBean = new BookBean();
+                    bookBean.setHref(linkHref);
+                }
             }
-            BookBean bookBean = map.get(linkHref);
-            if (bookBean == null) {
-                bookBean = new BookBean();
-                bookBean.setHref(linkHref);
-            }
-
-            Elements imgs = link.getElementsByTag("img");
+            Elements imgs = book.getElementsByTag("img");
             for (Element img : imgs) {
                 bookBean.setImg(img.attr("abs:src"));
+                bookBean.setName(img.attr("alt"));
             }
-            if (!StringUtil.isBlank(linkText)) {
-                bookBean.setName(linkText);
+            Elements authors = book.select("p:contains(作者)");
+            for (Element author : authors) {
+                bookBean.setAuthor(author.text());
             }
-            map.put(linkHref, bookBean);
+
+            map.put(bookBean.getHref(), bookBean);
         }
-       // System.out.println(map.toString());
         return map;
     }
 
@@ -75,7 +73,7 @@ public class Rawler_88 extends RawlerUtil {
             String linkHref = link.attr("abs:href");
             String linkText = link.text();
 
-         //   System.out.println(linkText + ":" + linkHref);
+            //   System.out.println(linkText + ":" + linkHref);
             if (StringUtil.isBlank(linkHref) || "首页".equals(linkText)) {
                 continue;
             }
@@ -99,7 +97,7 @@ public class Rawler_88 extends RawlerUtil {
             }
             map.put(linkHref, bookBean);
         }
-       // System.out.println(map.toString());
+        System.out.println(map.toString());
         return map;
     }
 

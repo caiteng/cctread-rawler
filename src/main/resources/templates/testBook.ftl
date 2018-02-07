@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="GBK"/>
     <title>Title</title>
     <script src="static/test.js"></script>
 </head>

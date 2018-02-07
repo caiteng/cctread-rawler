@@ -18,6 +18,7 @@ public class BookBean {
                 "href='" + href + '\'' +
                 ", name='" + name + '\'' +
                 ", img='" + img + '\'' +
+                ", author='" + author + '\'' +
                 '}';
     }
 
