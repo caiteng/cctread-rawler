@@ -60,7 +60,7 @@ public class RestRawlerController {
     @RequestMapping("/createBook")
     public String create(String href, String name, String img, String author) {
         log.info("createBook:"+name);
-        //通过线程添加书籍
+        //线程池获取线程添加书籍
         TenCentCosClient.getThreadPool().execute(new Runnable() {
             @Override
             public void run() {
