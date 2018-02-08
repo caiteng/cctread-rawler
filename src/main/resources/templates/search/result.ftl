@@ -39,21 +39,42 @@
             color: white;
             font-size: 18px;
         }
+        .bookImg {
+            height: 100px;
+            width: 80px;
+            border: 1px solid #ccc;
+            padding: 1px;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="static/js/searchBook.js"></script>
+    <script src="static/js/search/searchBook.js"></script>
 </head>
 <body>
 <table border="0px" width="100%" height="800px">
     <tr height="20%">
+        <td align="left">
+            <img src="static/img/logo.png"/>
+            <input type="text" id="wd" style="width: 540px;height: 36px;font-size: 20px;"/>
+            <button type="submit" class="search">搜索一下</button>
+        </td>
     </tr>
-    <tr height="40%">
-        <td align="center">
-            <p><img src="static/img/logo.png"/></p>
-            <p>
-                <input type="text" id="wd" style="width: 540px;height: 36px;font-size: 20px;"/>
-                <button type="submit" class="search">搜索一下</button>
-            </p>
+    <tr>
+        <td>
+        <#if (book)??>
+            <table>
+            <#list book? keys as key>
+                <tr>
+                    <td><img class="bookImg" src="${book["${key}"].img}" onerror="this.src='https://www.88dushu.com/modules/article/images/nocover.jpg'"/></td>
+                    <td>${book["${key}"].name}</td>
+                    <td> ${book["${key}"].author}</td>
+                    <td><button class="createBook" type="submit" data-href="${book["${key}"].href}">加入任务</button></td>
+                </tr>
+                <br>
+            </#list>
+            </table>
+        <#else>
+            ${msg!}
+        </#if>
         </td>
     </tr>
     <tr>

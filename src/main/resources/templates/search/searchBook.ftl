@@ -41,7 +41,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="static/js/searchBook.js"></script>
+    <script src="static/js/search/searchBook.js"></script>
 </head>
 <body>
 <table border="0px" width="100%" height="800px">

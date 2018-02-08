@@ -21,16 +21,16 @@
         <!--生成模型的包名和位置 -->
         <javaModelGenerator targetPackage="com.cctread.entity" targetProject="src/main/java"/>
         <!--映射文件的包名和位置 -->
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+        <sqlMapGenerator targetPackage="mapper" targetProject="1src/main/resources"/>
         <!--DAO的包名和位置 -->
-        <javaClientGenerator targetPackage="com.cctread.dao" targetProject="src/main/java" type="XMLMAPPER"/>
+        <javaClientGenerator targetPackage="com.cctread.dao" targetProject="1src/main/java" type="XMLMAPPER"/>
         <!--要生成哪些表 -->
         <table tableName="1cct_novel" domainObjectName="Novel" enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false">
             <property name="rootClass" value="com.cctread.entity.modules.AbstractEntity"/>
         </table>
-        <table tableName="1cct_chapter" domainObjectName="Chapter" enableSelectByExample="false" enableDeleteByExample="false"
+        <table tableName="cct_chapter" domainObjectName="Chapter" enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false">
             <property name="rootClass" value="com.cctread.entity.modules.AbstractEntity"/>

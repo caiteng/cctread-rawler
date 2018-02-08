@@ -2,7 +2,12 @@ package com.cctread.controller;
 
 import com.cctread.entity.Book;
 import com.cctread.util.cos.TenCentCosService;
+import com.core.exception.CctException;
 import com.core.rawler._88dushu.Rawler_88;
+import com.core.rawler.modules.BookBean;
+import org.jsoup.helper.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +23,8 @@ import java.util.Map;
  */
 @Controller
 public class RawlerController {
+    private static final Logger log = LoggerFactory.getLogger(RawlerController.class);
+
 
     @Autowired
     private TenCentCosService tenCentCosService;
@@ -31,14 +38,27 @@ public class RawlerController {
     public Object index() {
         return "search/searchBook";
     }
+
     /**
-     * 搜索首页
+     * 搜索结果
      *
      * @return
      */
-    @RequestMapping("/2")
-    public Object index2() {
-        return "search/searchResult";
+    @RequestMapping("/search")
+    public Object search(Model model, String key) {
+        if (!StringUtil.isBlank(key)) {
+            try {
+                Map<String, BookBean> map = Rawler_88.search(key);
+                if (map.size() == 0) {
+                    throw new CctException("未找到指定书籍");
+                }
+                model.addAttribute("book", map);
+            } catch (Exception e) {
+                log.error(e.getMessage());
+                model.addAttribute("msg", e.getMessage());
+            }
+        }
+        return "search/result";
     }
 
 
@@ -48,7 +68,7 @@ public class RawlerController {
      * @return
      */
     @RequestMapping("/get")
-    public String get(Model model,String key) {
+    public String get(Model model, String key) {
         Book book = new Book();
         book.setContent("cses");
 
@@ -58,16 +78,16 @@ public class RawlerController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "testBook";
     }
+
     /**
      * 测试freemarker
      *
      * @return
      */
     @RequestMapping("/getWebUrl")
-    public String getWebUrl(Model model,String url) {
+    public String getWebUrl(Model model, String url) {
         Book book = new Book();
         book.setContent("cses");
         try {
@@ -76,7 +96,6 @@ public class RawlerController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "testBook";
     }
 

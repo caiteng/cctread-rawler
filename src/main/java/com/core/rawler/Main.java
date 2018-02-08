@@ -28,21 +28,21 @@ public class Main extends RawlerUtil{
 //        url = "https://www.88dushu.com/xiaoshuo/0/545/11451196.html";
 //
 //        url = "https://www.88dushu.com/xiaoshuo/0/545/11451197.html";
-        try {
-            System.out.println(Rawler_88.search("鹿鼎记"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
 //        try {
-//            String  url = "https://www.88dushu.com/xiaoshuo/0/545/";
-//            //url="https://www.88dushu.com/xiaoshuo/20/20864/";
-//            Rawler_88.getWebUrl(url);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (InterruptedException e) {
+//            System.out.println(Rawler_88.search("鹿鼎记"));
+//        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+
+        try {
+            String  url = "https://www.88dushu.com/xiaoshuo/0/545/";
+            //url="https://www.88dushu.com/xiaoshuo/20/20864/";
+            Rawler_88.getWebUrl(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 //        try {
 //            String  url = "https://www.88dushu.com/xiaoshuo/0/545/11453500.html";
 //            //url="https://www.88dushu.com/xiaoshuo/20/20864/";

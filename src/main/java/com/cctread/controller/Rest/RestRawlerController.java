@@ -1,18 +1,26 @@
 package com.cctread.controller.Rest;
 
+import com.cctread.controller.RawlerController;
 import com.cctread.dao.NovelDao;
 import com.cctread.entity.Book;
 import com.cctread.entity.Novel;
 import com.cctread.entity.RawlerTask;
+import com.cctread.service.NovelService;
+import com.cctread.util.cos.TenCentCosClient;
 import com.cctread.util.cos.TenCentCosService;
 import com.core.exception.CctException;
 import com.core.rawler._88dushu.Rawler_88;
 import com.google.gson.Gson;
+import com.qcloud.cos.COSClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sun.rmi.runtime.Log;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -25,8 +33,9 @@ import java.util.Map;
 @RequestMapping("/rawler")
 public class RestRawlerController {
 
+    private static final Logger log = LoggerFactory.getLogger(RestRawlerController.class);
     @Autowired
-    private NovelDao novelDao;
+    private NovelService novelService;
 
     /**
      * 搜索
@@ -43,25 +52,28 @@ public class RestRawlerController {
             e.printStackTrace();
             return "{err:" + e + "}";
         }
-
     }
 
     /**
-     * 测试获取
+     * 添加书籍
      */
-    @RequestMapping("/get")
-    public String sear2ch(String key) {
-        return novelDao.get(1).toString();
-    }
-    /**
-     * 测试新增
-     */
-    @RequestMapping("/create")
-    public String create(String key) {
-        Novel novel=new Novel();
-        novel.setAuthor("草图");
-        novel.setBookName(key);
-        novelDao.create(novel);
-        return "aa";
+    @RequestMapping("/createBook")
+    public String create(String href, String name, String img, String author) {
+        log.info("createBook:"+name);
+        //通过线程添加书籍
+        TenCentCosClient.getThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    log.info("start createBook:"+name);
+                    novelService.createBook(href, name, img, author);
+                    log.info("over createBook:"+name);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return "添加成功";
+
     }
 }

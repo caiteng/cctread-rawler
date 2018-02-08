@@ -33,8 +33,8 @@ public class RawlerTaskController {
 //    @Autowired
 //    private RawlerTaskService rawlerTaskService;
 //
-    @Autowired
-    private RawlerTaskDao rawlerTaskDao;
+//    @Autowired
+//    private RawlerTaskDao rawlerTaskDao;
 
     /**
      * 测试freemarker
@@ -96,30 +96,6 @@ public class RawlerTaskController {
 
         return "c";
     }
-
-
-    /**
-     * 搜索
-     * @return
-     */
-    @RequestMapping("/test")
-    public Object test(int id) {
-
-        Map map = null;
-        try {
-           RawlerTask rawlerTask= rawlerTaskDao.get(id);
-            System.out.println(rawlerTask.toString());
-            return new Gson().toJson(rawlerTask);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "11";
-        }
-
-    }
-
-
-
-
 
 }
 

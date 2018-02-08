@@ -9,10 +9,17 @@ import com.cctread.entity.modules.AbstractEntity;
  * @version 1.0 创建时间：2018-01-08 16:39
  */
 public class Novel extends AbstractEntity {
+    /**
+     * 书名
+     */
     private String bookName;
-
+    /**
+     * 作者
+     */
     private String author;
-
+    /**
+     * 封面图片
+     */
     private String nocalCover;
 
     @Override

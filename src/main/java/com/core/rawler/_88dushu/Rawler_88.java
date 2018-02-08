@@ -97,7 +97,6 @@ public class Rawler_88 extends RawlerUtil {
             }
             map.put(linkHref, bookBean);
         }
-        System.out.println(map.toString());
         return map;
     }
 
