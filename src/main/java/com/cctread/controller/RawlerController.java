@@ -23,13 +23,22 @@ public class RawlerController {
     private TenCentCosService tenCentCosService;
 
     /**
-     * 首页
+     * 搜索首页
      *
      * @return
      */
     @RequestMapping("/")
     public Object index() {
         return "search/searchBook";
+    }
+    /**
+     * 搜索首页
+     *
+     * @return
+     */
+    @RequestMapping("/2")
+    public Object index2() {
+        return "search/searchResult";
     }
 
 
