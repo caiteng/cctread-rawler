@@ -29,12 +29,6 @@ public class RawlerTaskController {
 
     @Autowired
     private TenCentCosService tenCentCosService;
-//
-//    @Autowired
-//    private RawlerTaskService rawlerTaskService;
-//
-//    @Autowired
-//    private RawlerTaskDao rawlerTaskDao;
 
     /**
      * 测试freemarker
@@ -64,7 +58,6 @@ public class RawlerTaskController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "testBook";
     }
 

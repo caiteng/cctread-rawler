@@ -67,7 +67,7 @@ public class RestRawlerController {
                 try {
                     log.info("start createBook:"+name);
                     novelService.createBook(href, name, img, author);
-                    log.info("over createBook:"+name);
+                    log.info("end createBook:"+name);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
